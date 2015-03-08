@@ -47,6 +47,10 @@ def logout(request):
     return HttpResponseRedirect("/login")
 
 def forum(request):
+    if request.method == 'POST':
+        mtext = request.POST.get('mtext', '')
+        message = Message(text=mtext)
+        message.save()
     messages = Message.objects.all()
     return render(request, 'forum.html', {'messages': messages})
 
